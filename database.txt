@@ -1,0 +1,616 @@
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Generation Time: Apr 26, 2025 at 07:28 AM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.12
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `tbudget`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cache`
+--
+
+CREATE TABLE `cache` (
+  `key` varchar(255) NOT NULL,
+  `value` mediumtext NOT NULL,
+  `expiration` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cache_locks`
+--
+
+CREATE TABLE `cache_locks` (
+  `key` varchar(255) NOT NULL,
+  `owner` varchar(255) NOT NULL,
+  `expiration` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `failed_jobs`
+--
+
+CREATE TABLE `failed_jobs` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `uuid` varchar(255) NOT NULL,
+  `connection` text NOT NULL,
+  `queue` text NOT NULL,
+  `payload` longtext NOT NULL,
+  `exception` longtext NOT NULL,
+  `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `jobs`
+--
+
+CREATE TABLE `jobs` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `queue` varchar(255) NOT NULL,
+  `payload` longtext NOT NULL,
+  `attempts` tinyint(3) UNSIGNED NOT NULL,
+  `reserved_at` int(10) UNSIGNED DEFAULT NULL,
+  `available_at` int(10) UNSIGNED NOT NULL,
+  `created_at` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `job_batches`
+--
+
+CREATE TABLE `job_batches` (
+  `id` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `total_jobs` int(11) NOT NULL,
+  `pending_jobs` int(11) NOT NULL,
+  `failed_jobs` int(11) NOT NULL,
+  `failed_job_ids` longtext NOT NULL,
+  `options` mediumtext DEFAULT NULL,
+  `cancelled_at` int(11) DEFAULT NULL,
+  `created_at` int(11) NOT NULL,
+  `finished_at` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `local_routes`
+--
+
+CREATE TABLE `local_routes` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `type` varchar(255) NOT NULL,
+  `price` int(11) NOT NULL,
+  `frequency` varchar(255) NOT NULL,
+  `coordinates` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`coordinates`)),
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `local_routes`
+--
+
+INSERT INTO `local_routes` (`id`, `name`, `type`, `price`, `frequency`, `coordinates`, `created_at`, `updated_at`) VALUES
+(1, 'Terminal Patria - Pusat Kota', 'Angkot', 5000, 'Setiap 15 menit', '[[-8.0983,112.1681],[-8.099,112.163],[-8.101,112.16],[-8.1,112.158],[-8.097,112.157]]', '2025-04-25 11:24:35', '2025-04-25 11:24:35'),
+(2, 'Stasiun Blitar - Makam Bung Karno', 'Angkot', 6000, 'Setiap 20 menit', '[[-8.0978,112.1653],[-8.096,112.164],[-8.095,112.163],[-8.094,112.162],[-8.093,112.162]]', '2025-04-25 11:24:35', '2025-04-25 11:24:35'),
+(3, 'Terminal Patria - Pusat Kota', 'Angkot', 5000, 'Setiap 15 menit', '[[-8.0983,112.1681],[-8.099,112.163],[-8.101,112.16],[-8.1,112.158],[-8.097,112.157]]', '2025-04-25 11:32:49', '2025-04-25 11:32:49'),
+(4, 'Stasiun Blitar - Makam Bung Karno', 'Angkot', 6000, 'Setiap 20 menit', '[[-8.0978,112.1653],[-8.096,112.164],[-8.095,112.163],[-8.094,112.162],[-8.093,112.162]]', '2025-04-25 11:32:49', '2025-04-25 11:32:49');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `migrations`
+--
+
+CREATE TABLE `migrations` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `migration` varchar(255) NOT NULL,
+  `batch` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `migrations`
+--
+
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
+(1, '0001_01_01_000000_create_users_table', 1),
+(2, '0001_01_01_000001_create_cache_table', 1),
+(3, '0001_01_01_000002_create_jobs_table', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `password_reset_tokens`
+--
+
+CREATE TABLE `password_reset_tokens` (
+  `email` varchar(255) NOT NULL,
+  `token` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sessions`
+--
+
+CREATE TABLE `sessions` (
+  `id` varchar(255) NOT NULL,
+  `user_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `ip_address` varchar(45) DEFAULT NULL,
+  `user_agent` text DEFAULT NULL,
+  `payload` longtext NOT NULL,
+  `last_activity` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `sessions`
+--
+
+INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
+('PJi4lO8muufzNut2gJBT4M17oIWBMnTnhS7pGK6S', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiclRQbnRLeGR3VWNaQVBZT2pVRkg1bXVBUDVSODlpQk9uZWVLY2VGRiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mjk6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9wbGFubmVyIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1745645292),
+('sh1SiNpJEGhv0Jit7uonD1NHj8R7ZG0LveLXGzF5', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiYlVZZVpCUm04N3JYc0IwUUVMUVc4ZXdpdnlxb0p5bk9mUmVIWDUzRiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1745644322),
+('uWVs2Jj0tXXEiJiLzX7z1RQ3kRQG1Y9MUpygA5be', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiVFJ5SzRDR09mNGlubXpKRXQ5TUFGcUVJZ25GYVpUVjdEdzk3V2tVYiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1745633086),
+('Vale6SRKJASIeYulJR8yZ5dJnHik58KLA6lHm2xe', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiVTJtdUV4Sm4yMmN0N1VITHpGd3lZenJqVzdZSHVWS3pUYlZUNVFtdCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1745609827),
+('zUGDOWnTfsOUEZciHrQw06TQHExSm8ghRnR1AJRA', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiUkJ0TGZKZXVzOHBKUTdRdE5nVmkxejNneGRkRzlWVFZaM01PcTJQUyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1745633052);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tourisms`
+--
+
+CREATE TABLE `tourisms` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `type` varchar(255) NOT NULL DEFAULT 'tourism',
+  `description` text DEFAULT NULL,
+  `latitude` decimal(10,7) NOT NULL,
+  `longitude` decimal(10,7) NOT NULL,
+  `entrance_fee` int(11) DEFAULT NULL,
+  `facilities` text DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `tourisms`
+--
+
+INSERT INTO `tourisms` (`id`, `name`, `type`, `description`, `latitude`, `longitude`, `entrance_fee`, `facilities`, `created_at`, `updated_at`) VALUES
+(1, 'Taman Kebon Rojo', 'tourism', NULL, -8.0961454, 112.1744657, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(2, 'Blitar Green Park', 'tourism', NULL, -8.0797222, 112.1836111, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(3, 'Fish Garden Blitar', 'tourism', NULL, -8.0917077, 112.1476168, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(4, 'Taman Pecut Kota Blitar', 'tourism', NULL, -8.0992905, 112.1651980, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(5, 'Water Park Sumber Udel', 'tourism', NULL, -8.0916310, 112.1658109, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(6, 'Istana Gebang', 'tourism', NULL, -8.0982880, 112.1762678, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(7, 'AGROWISATA BELIMBING KARANGSARI', 'tourism', NULL, -8.1128915, 112.1570206, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(8, 'Kampung Coklat', 'tourism', NULL, -8.1560440, 112.1702082, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(9, 'Bongares Wisata 3D Blitar', 'tourism', NULL, -8.0971142, 112.1717017, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(10, 'Monumen Daidan PETA Blitar', 'tourism', NULL, -8.0940313, 112.1771479, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(11, 'Pantai Tambak Rejo Blitar', 'tourism', NULL, -8.3154182, 112.1434570, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(12, 'Pantai Pasir Putih Pasetran Gondo Mayit', 'tourism', NULL, -8.3205440, 112.1483550, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(13, 'Pantai Peh Pulo', 'tourism', NULL, -8.3439332, 112.2346652, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(14, 'Pantai pangi Warung mak guti', 'tourism', NULL, -8.3127297, 112.1109375, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(15, 'Pantai Pudak', 'tourism', NULL, -8.3249941, 112.2031234, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(16, 'Pantai Jebring', 'tourism', NULL, -8.3238592, 112.1834621, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(17, 'Pantai Serang', 'tourism', NULL, -8.3300345, 112.2214258, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(18, 'Pantai Jolosutro', 'tourism', NULL, -8.3321342, 112.3298253, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(19, 'Wisata Pantai Serang', 'tourism', NULL, -8.3315725, 112.2229400, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(20, 'Pantai Serit', 'tourism', NULL, -8.3267709, 112.2150331, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(21, 'Kedung Kandang (Camping Ground Blitar)', 'tourism', NULL, -8.1531822, 112.1375018, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(22, 'Camping Ground & Cafe Puncak Sekawan', 'tourism', NULL, -7.9985186, 112.3658096, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(23, 'Kalikebo Camping Ground', 'tourism', NULL, -7.9931690, 112.3370650, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(24, 'KALEENATA FAMILY CAMP', 'tourism', NULL, -8.0018064, 112.3373262, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(25, 'Jamburono Camping Ground', 'tourism', NULL, -7.9593435, 112.3766781, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(26, 'Ngusri Camping Ground', 'tourism', NULL, -8.0027694, 112.3069386, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(27, 'Bumi Perkemahan Serut Blitar', 'tourism', NULL, -8.1521853, 112.1908228, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(28, 'Hutan Pinus Loji blitar', 'tourism', NULL, -7.9624038, 112.3498854, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(29, 'Songgo langit campground', 'tourism', NULL, -8.3247118, 112.2032085, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(30, 'Loji Campervan Park', 'tourism', NULL, -7.9595011, 112.3471734, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(31, 'Gunung Kelud', 'tourism', NULL, -7.9350000, 112.3138889, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(32, 'Gn. Umbuk', 'tourism', NULL, -7.9444444, 112.2633333, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(33, 'Gn. Gedang', 'tourism', NULL, -7.9877778, 112.2872222, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(34, 'Gn. Betet', 'tourism', NULL, -8.1586111, 112.1991667, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(35, 'Gn. Pegat', 'tourism', NULL, -8.0513889, 112.0800000, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(36, 'Gunung Pegat', 'tourism', NULL, -8.0560238, 112.0712573, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(37, 'Gn. Gede', 'tourism', NULL, -8.2483333, 112.1627778, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(38, 'Gn. Butak', 'tourism', NULL, -7.9199960, 112.4499662, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(39, 'Paralayang Gunung Pegat', 'tourism', NULL, -8.0438939, 112.0914302, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(40, 'Gn. Sumedang', 'tourism', NULL, -8.1908333, 112.1316667, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(41, 'Istana Gebang', 'tourism', NULL, -8.0982880, 112.1762678, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(42, 'Monumen Daidan PETA Blitar', 'tourism', NULL, -8.0940313, 112.1771479, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(43, 'Makam Bung Karno', 'tourism', NULL, -8.0846565, 112.1761450, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(44, 'Candi Penataran', 'tourism', NULL, -8.0163870, 112.2095961, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(45, 'Situs Jatimalang', 'tourism', NULL, -8.0683785, 112.1886796, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(46, 'Monumen Trisula', 'tourism', NULL, -8.2595122, 112.0742377, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(47, 'Pesanggrahan Djojodigdan', 'tourism', NULL, -8.1037846, 112.1631234, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(48, 'Candi Gedog', 'tourism', NULL, -8.0878858, 112.1843338, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(49, 'Candi Gambar Wetan (ꦕꦟ꧀ꦝꦶꦒꦩ꧀ꦧꦂꦮꦺꦠꦤ꧀)', 'tourism', NULL, -7.9679168, 112.2388873, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(50, 'Kampung Coklat', 'tourism', NULL, -8.1560440, 112.1702082, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(51, 'Makam Syaikh Abu Hasan Syaikh Abu Manshur Kuningan Blitar', 'tourism', NULL, -8.1181239, 112.1821797, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(52, 'Goa Maria Sendang Rejo', 'tourism', NULL, -8.0684671, 112.1856256, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(53, 'Makam Bung Karno', 'tourism', NULL, -8.0846565, 112.1761450, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(54, 'Masjid \"Nabawi\" Blitar', 'tourism', NULL, -8.0919365, 112.1674859, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(55, 'Masjid Agung Kota Blitar', 'tourism', NULL, -8.0980979, 112.1642712, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(56, 'Makam Adipati Aryo Blitar', 'tourism', NULL, -8.1018236, 112.1480916, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(57, 'Masjid Ar-Rahman', 'tourism', NULL, -8.0919398, 112.1674805, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(58, 'Wisata Religi Jiaroh Makam Sumberarum', 'tourism', NULL, -8.2591292, 112.3270039, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(59, 'Fish Garden Blitar', 'tourism', NULL, -8.0917077, 112.1476168, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(60, 'Taman Kebon Rojo', 'tourism', NULL, -8.0961454, 112.1744657, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(61, 'Roketto Coffee & Co Blitar', 'tourism', NULL, -8.1062003, 112.1676737, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(62, 'Nata Coffee & Eatery', 'tourism', NULL, -8.1052669, 112.1678466, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(63, 'Boom Cafe', 'tourism', NULL, -8.0990103, 112.1689611, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(64, 'O10thic Coffee Eatery', 'tourism', NULL, -8.0983800, 112.1749887, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(65, 'Grands Coffee', 'tourism', NULL, -8.0852122, 112.1724005, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(66, 'Tomoro Coffee - Anggrek Blitar', 'tourism', NULL, -8.1021763, 112.1594322, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(67, 'Lak-i Coffee & Famous Pizza', 'tourism', NULL, -8.0952474, 112.1676140, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(68, 'Tibal Coffee', 'tourism', NULL, -8.0990389, 112.1783698, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(69, 'WANT MORE COFFEE & EATERY', 'tourism', NULL, -8.0898247, 112.1709603, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(70, 'Keshini Restaurant Cafe Blitar', 'tourism', NULL, -8.1111347, 112.1564391, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(71, 'Rest Area Hand Asta Sih', 'tourism', NULL, -8.0601131, 112.0575846, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(72, 'Rest Area Bantaran', 'tourism', NULL, -7.9916712, 112.3534642, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(73, 'Pendapa Ageng Hand Asta Sih', 'tourism', NULL, -8.0602916, 112.0575508, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(74, 'Rest Area Saung Gunung Gamping', 'tourism', NULL, -8.1273404, 112.1201308, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(75, 'Rest area', 'tourism', NULL, -8.0766936, 112.2289024, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(76, 'Wijaya Rest Area and Parking', 'tourism', NULL, -8.0842390, 112.1773815, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(77, 'Rest Area Joglo Al-Barokah', 'tourism', NULL, -8.0632452, 112.0985341, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(78, 'Rest Area Sumber X Bambang', 'tourism', NULL, -8.1429280, 112.3451393, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(79, 'Rest Area Wlingi', 'tourism', NULL, -8.0905261, 112.3232790, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(80, 'REST AREA DEWI WARNA DAN PEMANCINGAN', 'tourism', NULL, -8.0824899, 112.1951828, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(81, 'Nawangwulan Guest House', 'tourism', NULL, -8.1004335, 112.1623049, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(82, 'Soteria', 'tourism', NULL, -8.0917197, 112.1793490, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(83, 'Irma\'Residence', 'tourism', NULL, -8.1114306, 112.1721174, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(84, 'Sans WM Hotel Blitar', 'tourism', NULL, -8.0902001, 112.1708691, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(85, 'Livy house blitar', 'tourism', NULL, -8.1036379, 112.1798548, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(86, 'Reddoorz Near Makam Bung Karno Blitar', 'tourism', NULL, -8.0880766, 112.1764907, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(87, 'Reddoorz New Melati near Stasiun Blitar', 'tourism', NULL, -8.1026227, 112.1622297, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(88, 'AL-KISWAH SYARIAH ( Kelud Syariah ) Guest House', 'tourism', NULL, -8.0969962, 112.1677580, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(89, 'OYO 93976 Maluku Guest House', 'tourism', NULL, -8.1169283, 112.1772178, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(90, 'RedDoorz @ Jalan Tanjung Blitar', 'tourism', NULL, -8.1017606, 112.1533998, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(91, 'Hotel Santika Blitar', 'tourism', NULL, -8.0939459, 112.1728068, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(92, 'Grand Mansion Hotel Blitar', 'tourism', NULL, -8.1030489, 112.1610357, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(93, 'Hotel Tugu Blitar', 'tourism', NULL, -8.0993719, 112.1616592, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(94, 'Patria Palace Hotel', 'tourism', NULL, -8.1005344, 112.1640478, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(95, 'Puri Perdana Hotel & Convention Hall', 'tourism', NULL, -8.0945703, 112.1650817, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(96, 'Patria Plaza Hotel', 'tourism', NULL, -8.0956068, 112.1700489, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(97, 'Soteria', 'tourism', NULL, -8.0917197, 112.1793490, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(98, 'Sans WM Hotel Blitar', 'tourism', NULL, -8.0902001, 112.1708691, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(99, 'Patria Family Hotel', 'tourism', NULL, -8.0912241, 112.1733033, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(100, 'Livy house blitar', 'tourism', NULL, -8.1036379, 112.1798548, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(101, 'Candi Penataran', 'tourism', NULL, -8.0164354, 112.2097528, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(102, 'Candi Sawentar', 'tourism', NULL, -8.0988304, 112.2353840, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(103, 'Candi Gedog', 'tourism', NULL, -8.0878858, 112.1843338, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(104, 'Candi Simping', 'tourism', NULL, -8.1641006, 112.1461180, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(105, 'Candi Wringin Branjang', 'tourism', NULL, -8.0027266, 112.2817346, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(106, 'Candi Kotes/ Candi Papoh', 'tourism', NULL, -8.0505521, 112.2880613, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(107, 'Candi Kalicilik', 'tourism', NULL, -7.9980442, 112.1403690, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(108, 'Candi Gambar Wetan (ꦕꦟ꧀ꦝꦶꦒꦩ꧀ꦧꦂꦮꦺꦠꦤ꧀)', 'tourism', NULL, -7.9679168, 112.2388873, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(109, 'Candi Mleri', 'tourism', NULL, -8.0562150, 112.0849811, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(110, 'Candi Sumbernanas', 'tourism', NULL, -8.0113243, 112.1427519, 10000, NULL, '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(111, 'Taman Kebon Rojo', 'park', NULL, -8.0961454, 112.1744657, 10000, NULL, '2025-04-25 11:32:48', '2025-04-25 11:32:48'),
+(112, 'Blitar Green Park', 'park', NULL, -8.0797222, 112.1836111, 10000, NULL, '2025-04-25 11:32:48', '2025-04-25 11:32:48'),
+(113, 'Fish Garden Blitar', 'tourism', NULL, -8.0917077, 112.1476168, 10000, NULL, '2025-04-25 11:32:48', '2025-04-25 11:32:48'),
+(114, 'Taman Pecut Kota Blitar', 'park', NULL, -8.0992905, 112.1651980, 10000, NULL, '2025-04-25 11:32:48', '2025-04-25 11:32:48'),
+(115, 'Water Park Sumber Udel', 'park', NULL, -8.0916310, 112.1658109, 10000, NULL, '2025-04-25 11:32:48', '2025-04-25 11:32:48'),
+(116, 'Istana Gebang', 'tourism', NULL, -8.0982880, 112.1762678, 10000, NULL, '2025-04-25 11:32:48', '2025-04-25 11:32:48'),
+(117, 'AGROWISATA BELIMBING KARANGSARI', 'agrotourism', NULL, -8.1128915, 112.1570206, 10000, NULL, '2025-04-25 11:32:48', '2025-04-25 11:32:48'),
+(118, 'Kampung Coklat', 'tourism', NULL, -8.1560440, 112.1702082, 10000, NULL, '2025-04-25 11:32:48', '2025-04-25 11:32:48'),
+(119, 'Bongares Wisata 3D Blitar', 'tourism', NULL, -8.0971142, 112.1717017, 10000, NULL, '2025-04-25 11:32:48', '2025-04-25 11:32:48'),
+(120, 'Monumen Daidan PETA Blitar', 'monument', NULL, -8.0940313, 112.1771479, 10000, NULL, '2025-04-25 11:32:48', '2025-04-25 11:32:48'),
+(121, 'Pantai Tambak Rejo Blitar', 'beach', NULL, -8.3154182, 112.1434570, 10000, NULL, '2025-04-25 11:32:48', '2025-04-25 11:32:48'),
+(122, 'Pantai Pasir Putih Pasetran Gondo Mayit', 'beach', NULL, -8.3205440, 112.1483550, 10000, NULL, '2025-04-25 11:32:48', '2025-04-25 11:32:48'),
+(123, 'Pantai Peh Pulo', 'beach', NULL, -8.3439332, 112.2346652, 10000, NULL, '2025-04-25 11:32:48', '2025-04-25 11:32:48'),
+(124, 'Pantai pangi Warung mak guti', 'beach', NULL, -8.3127297, 112.1109375, 10000, NULL, '2025-04-25 11:32:48', '2025-04-25 11:32:48'),
+(125, 'Pantai Pudak', 'beach', NULL, -8.3249941, 112.2031234, 10000, NULL, '2025-04-25 11:32:48', '2025-04-25 11:32:48'),
+(126, 'Pantai Jebring', 'beach', NULL, -8.3238592, 112.1834621, 10000, NULL, '2025-04-25 11:32:48', '2025-04-25 11:32:48'),
+(127, 'Pantai Serang', 'beach', NULL, -8.3300345, 112.2214258, 10000, NULL, '2025-04-25 11:32:48', '2025-04-25 11:32:48'),
+(128, 'Pantai Jolosutro', 'beach', NULL, -8.3321342, 112.3298253, 10000, NULL, '2025-04-25 11:32:48', '2025-04-25 11:32:48'),
+(129, 'Wisata Pantai Serang', 'beach', NULL, -8.3315725, 112.2229400, 10000, NULL, '2025-04-25 11:32:48', '2025-04-25 11:32:48'),
+(130, 'Pantai Serit', 'beach', NULL, -8.3267709, 112.2150331, 10000, NULL, '2025-04-25 11:32:48', '2025-04-25 11:32:48'),
+(131, 'Kedung Kandang (Camping Ground Blitar)', 'camping', NULL, -8.1531822, 112.1375018, 10000, NULL, '2025-04-25 11:32:48', '2025-04-25 11:32:48'),
+(132, 'Camping Ground & Cafe Puncak Sekawan', 'camping', NULL, -7.9985186, 112.3658096, 10000, NULL, '2025-04-25 11:32:48', '2025-04-25 11:32:48'),
+(133, 'Kalikebo Camping Ground', 'camping', NULL, -7.9931690, 112.3370650, 10000, NULL, '2025-04-25 11:32:48', '2025-04-25 11:32:48'),
+(134, 'KALEENATA FAMILY CAMP', 'camping', NULL, -8.0018064, 112.3373262, 10000, NULL, '2025-04-25 11:32:48', '2025-04-25 11:32:48'),
+(135, 'Jamburono Camping Ground', 'camping', NULL, -7.9593435, 112.3766781, 10000, NULL, '2025-04-25 11:32:48', '2025-04-25 11:32:48'),
+(136, 'Ngusri Camping Ground', 'camping', NULL, -8.0027694, 112.3069386, 10000, NULL, '2025-04-25 11:32:48', '2025-04-25 11:32:48'),
+(137, 'Bumi Perkemahan Serut Blitar', 'tourism', NULL, -8.1521853, 112.1908228, 10000, NULL, '2025-04-25 11:32:48', '2025-04-25 11:32:48'),
+(138, 'Hutan Pinus Loji blitar', 'tourism', NULL, -7.9624038, 112.3498854, 10000, NULL, '2025-04-25 11:32:48', '2025-04-25 11:32:48'),
+(139, 'Songgo langit campground', 'camping', NULL, -8.3247118, 112.2032085, 10000, NULL, '2025-04-25 11:32:48', '2025-04-25 11:32:48'),
+(140, 'Loji Campervan Park', 'camping', NULL, -7.9595011, 112.3471734, 10000, NULL, '2025-04-25 11:32:48', '2025-04-25 11:32:48'),
+(141, 'Gunung Kelud', 'mountain', NULL, -7.9350000, 112.3138889, 10000, NULL, '2025-04-25 11:32:48', '2025-04-25 11:32:48'),
+(142, 'Gn. Umbuk', 'mountain', NULL, -7.9444444, 112.2633333, 10000, NULL, '2025-04-25 11:32:48', '2025-04-25 11:32:48'),
+(143, 'Gn. Gedang', 'mountain', NULL, -7.9877778, 112.2872222, 10000, NULL, '2025-04-25 11:32:48', '2025-04-25 11:32:48'),
+(144, 'Gn. Betet', 'mountain', NULL, -8.1586111, 112.1991667, 10000, NULL, '2025-04-25 11:32:48', '2025-04-25 11:32:48'),
+(145, 'Gn. Pegat', 'mountain', NULL, -8.0513889, 112.0800000, 10000, NULL, '2025-04-25 11:32:48', '2025-04-25 11:32:48'),
+(146, 'Gunung Pegat', 'mountain', NULL, -8.0560238, 112.0712573, 10000, NULL, '2025-04-25 11:32:48', '2025-04-25 11:32:48'),
+(147, 'Gn. Gede', 'mountain', NULL, -8.2483333, 112.1627778, 10000, NULL, '2025-04-25 11:32:48', '2025-04-25 11:32:48'),
+(148, 'Gn. Butak', 'mountain', NULL, -7.9199960, 112.4499662, 10000, NULL, '2025-04-25 11:32:48', '2025-04-25 11:32:48'),
+(149, 'Paralayang Gunung Pegat', 'mountain', NULL, -8.0438939, 112.0914302, 10000, NULL, '2025-04-25 11:32:48', '2025-04-25 11:32:48'),
+(150, 'Gn. Sumedang', 'mountain', NULL, -8.1908333, 112.1316667, 10000, NULL, '2025-04-25 11:32:48', '2025-04-25 11:32:48'),
+(151, 'Istana Gebang', 'tourism', NULL, -8.0982880, 112.1762678, 10000, NULL, '2025-04-25 11:32:48', '2025-04-25 11:32:48'),
+(152, 'Monumen Daidan PETA Blitar', 'monument', NULL, -8.0940313, 112.1771479, 10000, NULL, '2025-04-25 11:32:48', '2025-04-25 11:32:48'),
+(153, 'Makam Bung Karno', 'historical', NULL, -8.0846565, 112.1761450, 10000, NULL, '2025-04-25 11:32:48', '2025-04-25 11:32:48'),
+(154, 'Candi Penataran', 'temple', NULL, -8.0163870, 112.2095961, 10000, NULL, '2025-04-25 11:32:48', '2025-04-25 11:32:48'),
+(155, 'Situs Jatimalang', 'tourism', NULL, -8.0683785, 112.1886796, 10000, NULL, '2025-04-25 11:32:48', '2025-04-25 11:32:48'),
+(156, 'Monumen Trisula', 'monument', NULL, -8.2595122, 112.0742377, 10000, NULL, '2025-04-25 11:32:48', '2025-04-25 11:32:48'),
+(157, 'Pesanggrahan Djojodigdan', 'tourism', NULL, -8.1037846, 112.1631234, 10000, NULL, '2025-04-25 11:32:48', '2025-04-25 11:32:48'),
+(158, 'Candi Gedog', 'temple', NULL, -8.0878858, 112.1843338, 10000, NULL, '2025-04-25 11:32:48', '2025-04-25 11:32:48'),
+(159, 'Candi Gambar Wetan (ꦕꦟ꧀ꦝꦶꦒꦩ꧀ꦧꦂꦮꦺꦠꦤ꧀)', 'temple', NULL, -7.9679168, 112.2388873, 10000, NULL, '2025-04-25 11:32:48', '2025-04-25 11:32:48'),
+(160, 'Kampung Coklat', 'tourism', NULL, -8.1560440, 112.1702082, 10000, NULL, '2025-04-25 11:32:48', '2025-04-25 11:32:48'),
+(161, 'Makam Syaikh Abu Hasan Syaikh Abu Manshur Kuningan Blitar', 'historical', NULL, -8.1181239, 112.1821797, 10000, NULL, '2025-04-25 11:32:48', '2025-04-25 11:32:48'),
+(162, 'Goa Maria Sendang Rejo', 'religious', NULL, -8.0684671, 112.1856256, 10000, NULL, '2025-04-25 11:32:48', '2025-04-25 11:32:48'),
+(163, 'Makam Bung Karno', 'historical', NULL, -8.0846565, 112.1761450, 10000, NULL, '2025-04-25 11:32:48', '2025-04-25 11:32:48'),
+(164, 'Masjid \"Nabawi\" Blitar', 'religious', NULL, -8.0919365, 112.1674859, 10000, NULL, '2025-04-25 11:32:48', '2025-04-25 11:32:48'),
+(165, 'Masjid Agung Kota Blitar', 'religious', NULL, -8.0980979, 112.1642712, 10000, NULL, '2025-04-25 11:32:48', '2025-04-25 11:32:48'),
+(166, 'Makam Adipati Aryo Blitar', 'historical', NULL, -8.1018236, 112.1480916, 10000, NULL, '2025-04-25 11:32:48', '2025-04-25 11:32:48'),
+(167, 'Masjid Ar-Rahman', 'religious', NULL, -8.0919398, 112.1674805, 10000, NULL, '2025-04-25 11:32:48', '2025-04-25 11:32:48'),
+(168, 'Wisata Religi Jiaroh Makam Sumberarum', 'historical', NULL, -8.2591292, 112.3270039, 10000, NULL, '2025-04-25 11:32:48', '2025-04-25 11:32:48'),
+(169, 'Fish Garden Blitar', 'tourism', NULL, -8.0917077, 112.1476168, 10000, NULL, '2025-04-25 11:32:48', '2025-04-25 11:32:48'),
+(170, 'Taman Kebon Rojo', 'park', NULL, -8.0961454, 112.1744657, 10000, NULL, '2025-04-25 11:32:48', '2025-04-25 11:32:48'),
+(171, 'Roketto Coffee & Co Blitar', 'culinary', NULL, -8.1062003, 112.1676737, 10000, NULL, '2025-04-25 11:32:48', '2025-04-25 11:32:48'),
+(172, 'Nata Coffee & Eatery', 'culinary', NULL, -8.1052669, 112.1678466, 10000, NULL, '2025-04-25 11:32:48', '2025-04-25 11:32:48'),
+(173, 'Boom Cafe', 'culinary', NULL, -8.0990103, 112.1689611, 10000, NULL, '2025-04-25 11:32:48', '2025-04-25 11:32:48'),
+(174, 'O10thic Coffee Eatery', 'culinary', NULL, -8.0983800, 112.1749887, 10000, NULL, '2025-04-25 11:32:48', '2025-04-25 11:32:48'),
+(175, 'Grands Coffee', 'culinary', NULL, -8.0852122, 112.1724005, 10000, NULL, '2025-04-25 11:32:48', '2025-04-25 11:32:48'),
+(176, 'Tomoro Coffee - Anggrek Blitar', 'culinary', NULL, -8.1021763, 112.1594322, 10000, NULL, '2025-04-25 11:32:48', '2025-04-25 11:32:48'),
+(177, 'Lak-i Coffee & Famous Pizza', 'culinary', NULL, -8.0952474, 112.1676140, 10000, NULL, '2025-04-25 11:32:48', '2025-04-25 11:32:48'),
+(178, 'Tibal Coffee', 'culinary', NULL, -8.0990389, 112.1783698, 10000, NULL, '2025-04-25 11:32:48', '2025-04-25 11:32:48'),
+(179, 'WANT MORE COFFEE & EATERY', 'culinary', NULL, -8.0898247, 112.1709603, 10000, NULL, '2025-04-25 11:32:48', '2025-04-25 11:32:48'),
+(180, 'Keshini Restaurant Cafe Blitar', 'culinary', NULL, -8.1111347, 112.1564391, 10000, NULL, '2025-04-25 11:32:48', '2025-04-25 11:32:48'),
+(181, 'Rest Area Hand Asta Sih', 'rest_area', NULL, -8.0601131, 112.0575846, 10000, NULL, '2025-04-25 11:32:48', '2025-04-25 11:32:48'),
+(182, 'Rest Area Bantaran', 'rest_area', NULL, -7.9916712, 112.3534642, 10000, NULL, '2025-04-25 11:32:48', '2025-04-25 11:32:48'),
+(183, 'Pendapa Ageng Hand Asta Sih', 'tourism', NULL, -8.0602916, 112.0575508, 10000, NULL, '2025-04-25 11:32:48', '2025-04-25 11:32:48'),
+(184, 'Rest Area Saung Gunung Gamping', 'mountain', NULL, -8.1273404, 112.1201308, 10000, NULL, '2025-04-25 11:32:48', '2025-04-25 11:32:48'),
+(185, 'Rest area', 'rest_area', NULL, -8.0766936, 112.2289024, 10000, NULL, '2025-04-25 11:32:48', '2025-04-25 11:32:48'),
+(186, 'Wijaya Rest Area and Parking', 'rest_area', NULL, -8.0842390, 112.1773815, 10000, NULL, '2025-04-25 11:32:48', '2025-04-25 11:32:48'),
+(187, 'Rest Area Joglo Al-Barokah', 'rest_area', NULL, -8.0632452, 112.0985341, 10000, NULL, '2025-04-25 11:32:48', '2025-04-25 11:32:48'),
+(188, 'Rest Area Sumber X Bambang', 'rest_area', NULL, -8.1429280, 112.3451393, 10000, NULL, '2025-04-25 11:32:49', '2025-04-25 11:32:49'),
+(189, 'Rest Area Wlingi', 'rest_area', NULL, -8.0905261, 112.3232790, 10000, NULL, '2025-04-25 11:32:49', '2025-04-25 11:32:49'),
+(190, 'REST AREA DEWI WARNA DAN PEMANCINGAN', 'rest_area', NULL, -8.0824899, 112.1951828, 10000, NULL, '2025-04-25 11:32:49', '2025-04-25 11:32:49'),
+(191, 'Nawangwulan Guest House', 'accommodation', NULL, -8.1004335, 112.1623049, 10000, NULL, '2025-04-25 11:32:49', '2025-04-25 11:32:49'),
+(192, 'Soteria', 'tourism', NULL, -8.0917197, 112.1793490, 10000, NULL, '2025-04-25 11:32:49', '2025-04-25 11:32:49'),
+(193, 'Irma\'Residence', 'tourism', NULL, -8.1114306, 112.1721174, 10000, NULL, '2025-04-25 11:32:49', '2025-04-25 11:32:49'),
+(194, 'Sans WM Hotel Blitar', 'accommodation', NULL, -8.0902001, 112.1708691, 10000, NULL, '2025-04-25 11:32:49', '2025-04-25 11:32:49'),
+(195, 'Livy house blitar', 'tourism', NULL, -8.1036379, 112.1798548, 10000, NULL, '2025-04-25 11:32:49', '2025-04-25 11:32:49'),
+(196, 'Reddoorz Near Makam Bung Karno Blitar', 'historical', NULL, -8.0880766, 112.1764907, 10000, NULL, '2025-04-25 11:32:49', '2025-04-25 11:32:49'),
+(197, 'Reddoorz New Melati near Stasiun Blitar', 'tourism', NULL, -8.1026227, 112.1622297, 10000, NULL, '2025-04-25 11:32:49', '2025-04-25 11:32:49'),
+(198, 'AL-KISWAH SYARIAH ( Kelud Syariah ) Guest House', 'accommodation', NULL, -8.0969962, 112.1677580, 10000, NULL, '2025-04-25 11:32:49', '2025-04-25 11:32:49'),
+(199, 'OYO 93976 Maluku Guest House', 'accommodation', NULL, -8.1169283, 112.1772178, 10000, NULL, '2025-04-25 11:32:49', '2025-04-25 11:32:49'),
+(200, 'RedDoorz @ Jalan Tanjung Blitar', 'tourism', NULL, -8.1017606, 112.1533998, 10000, NULL, '2025-04-25 11:32:49', '2025-04-25 11:32:49'),
+(201, 'Hotel Santika Blitar', 'accommodation', NULL, -8.0939459, 112.1728068, 10000, NULL, '2025-04-25 11:32:49', '2025-04-25 11:32:49'),
+(202, 'Grand Mansion Hotel Blitar', 'accommodation', NULL, -8.1030489, 112.1610357, 10000, NULL, '2025-04-25 11:32:49', '2025-04-25 11:32:49'),
+(203, 'Hotel Tugu Blitar', 'accommodation', NULL, -8.0993719, 112.1616592, 10000, NULL, '2025-04-25 11:32:49', '2025-04-25 11:32:49'),
+(204, 'Patria Palace Hotel', 'accommodation', NULL, -8.1005344, 112.1640478, 10000, NULL, '2025-04-25 11:32:49', '2025-04-25 11:32:49'),
+(205, 'Puri Perdana Hotel & Convention Hall', 'accommodation', NULL, -8.0945703, 112.1650817, 10000, NULL, '2025-04-25 11:32:49', '2025-04-25 11:32:49'),
+(206, 'Patria Plaza Hotel', 'accommodation', NULL, -8.0956068, 112.1700489, 10000, NULL, '2025-04-25 11:32:49', '2025-04-25 11:32:49'),
+(207, 'Soteria', 'tourism', NULL, -8.0917197, 112.1793490, 10000, NULL, '2025-04-25 11:32:49', '2025-04-25 11:32:49'),
+(208, 'Sans WM Hotel Blitar', 'accommodation', NULL, -8.0902001, 112.1708691, 10000, NULL, '2025-04-25 11:32:49', '2025-04-25 11:32:49'),
+(209, 'Patria Family Hotel', 'accommodation', NULL, -8.0912241, 112.1733033, 10000, NULL, '2025-04-25 11:32:49', '2025-04-25 11:32:49'),
+(210, 'Livy house blitar', 'tourism', NULL, -8.1036379, 112.1798548, 10000, NULL, '2025-04-25 11:32:49', '2025-04-25 11:32:49'),
+(211, 'Candi Penataran', 'temple', NULL, -8.0164354, 112.2097528, 10000, NULL, '2025-04-25 11:32:49', '2025-04-25 11:32:49'),
+(212, 'Candi Sawentar', 'temple', NULL, -8.0988304, 112.2353840, 10000, NULL, '2025-04-25 11:32:49', '2025-04-25 11:32:49'),
+(213, 'Candi Gedog', 'temple', NULL, -8.0878858, 112.1843338, 10000, NULL, '2025-04-25 11:32:49', '2025-04-25 11:32:49'),
+(214, 'Candi Simping', 'temple', NULL, -8.1641006, 112.1461180, 10000, NULL, '2025-04-25 11:32:49', '2025-04-25 11:32:49'),
+(215, 'Candi Wringin Branjang', 'temple', NULL, -8.0027266, 112.2817346, 10000, NULL, '2025-04-25 11:32:49', '2025-04-25 11:32:49'),
+(216, 'Candi Kotes/ Candi Papoh', 'temple', NULL, -8.0505521, 112.2880613, 10000, NULL, '2025-04-25 11:32:49', '2025-04-25 11:32:49'),
+(217, 'Candi Kalicilik', 'temple', NULL, -7.9980442, 112.1403690, 10000, NULL, '2025-04-25 11:32:49', '2025-04-25 11:32:49'),
+(218, 'Candi Gambar Wetan (ꦕꦟ꧀ꦝꦶꦒꦩ꧀ꦧꦂꦮꦺꦠꦤ꧀)', 'temple', NULL, -7.9679168, 112.2388873, 10000, NULL, '2025-04-25 11:32:49', '2025-04-25 11:32:49'),
+(219, 'Candi Mleri', 'temple', NULL, -8.0562150, 112.0849811, 10000, NULL, '2025-04-25 11:32:49', '2025-04-25 11:32:49'),
+(220, 'Candi Sumbernanas', 'temple', NULL, -8.0113243, 112.1427519, 10000, NULL, '2025-04-25 11:32:49', '2025-04-25 11:32:49');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `transportations`
+--
+
+CREATE TABLE `transportations` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `route_name` varchar(255) NOT NULL,
+  `type` varchar(255) NOT NULL,
+  `price` int(11) NOT NULL,
+  `duration_minutes` int(11) NOT NULL,
+  `departure_times` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`departure_times`)),
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `transportations`
+--
+
+INSERT INTO `transportations` (`id`, `route_name`, `type`, `price`, `duration_minutes`, `departure_times`, `created_at`, `updated_at`) VALUES
+(1, 'Blitar - Malang', 'Bus', 35000, 120, '[\"07:00\",\"09:00\",\"11:00\",\"13:00\",\"15:00\",\"17:00\"]', '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(2, 'Blitar - Kediri', 'Bus', 25000, 90, '[\"06:30\",\"08:30\",\"10:30\",\"12:30\",\"14:30\",\"16:30\"]', '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(3, 'Blitar - Tulungagung', 'Bus', 15000, 45, '[\"07:15\",\"08:15\",\"09:15\",\"10:15\",\"11:15\",\"13:15\",\"14:15\",\"15:15\",\"16:15\"]', '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(4, 'Blitar - Surabaya', 'Bus', 70000, 210, '[\"05:00\",\"07:00\",\"09:00\",\"12:00\",\"15:00\"]', '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(5, 'Blitar - Jember', 'Travel', 120000, 240, '[\"07:30\",\"12:30\",\"17:30\"]', '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(6, 'Blitar - Banyuwangi', 'Travel', 150000, 300, '[\"06:00\",\"16:00\"]', '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(7, 'Blitar - Surabaya', 'Kereta', 80000, 240, '[\"05:30\",\"10:15\",\"14:45\",\"19:30\"]', '2025-04-25 11:24:34', '2025-04-25 11:24:34'),
+(8, 'Blitar - Malang', 'Kereta', 45000, 90, '[\"06:45\",\"12:20\",\"17:15\"]', '2025-04-25 11:24:35', '2025-04-25 11:24:35'),
+(9, 'Blitar - Malang', 'Bus', 35000, 120, '[\"07:00\",\"09:00\",\"11:00\",\"13:00\",\"15:00\",\"17:00\"]', '2025-04-25 11:32:49', '2025-04-25 11:32:49'),
+(10, 'Blitar - Kediri', 'Bus', 25000, 90, '[\"06:30\",\"08:30\",\"10:30\",\"12:30\",\"14:30\",\"16:30\"]', '2025-04-25 11:32:49', '2025-04-25 11:32:49'),
+(11, 'Blitar - Tulungagung', 'Bus', 15000, 45, '[\"07:15\",\"08:15\",\"09:15\",\"10:15\",\"11:15\",\"13:15\",\"14:15\",\"15:15\",\"16:15\"]', '2025-04-25 11:32:49', '2025-04-25 11:32:49'),
+(12, 'Blitar - Surabaya', 'Bus', 70000, 210, '[\"05:00\",\"07:00\",\"09:00\",\"12:00\",\"15:00\"]', '2025-04-25 11:32:49', '2025-04-25 11:32:49'),
+(13, 'Blitar - Jember', 'Travel', 120000, 240, '[\"07:30\",\"12:30\",\"17:30\"]', '2025-04-25 11:32:49', '2025-04-25 11:32:49'),
+(14, 'Blitar - Banyuwangi', 'Travel', 150000, 300, '[\"06:00\",\"16:00\"]', '2025-04-25 11:32:49', '2025-04-25 11:32:49'),
+(15, 'Blitar - Surabaya', 'Kereta', 80000, 240, '[\"05:30\",\"10:15\",\"14:45\",\"19:30\"]', '2025-04-25 11:32:49', '2025-04-25 11:32:49'),
+(16, 'Blitar - Malang', 'Kereta', 45000, 90, '[\"06:45\",\"12:20\",\"17:15\"]', '2025-04-25 11:32:49', '2025-04-25 11:32:49');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `email_verified_at` timestamp NULL DEFAULT NULL,
+  `password` varchar(255) NOT NULL,
+  `remember_token` varchar(100) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `cache`
+--
+ALTER TABLE `cache`
+  ADD PRIMARY KEY (`key`);
+
+--
+-- Indexes for table `cache_locks`
+--
+ALTER TABLE `cache_locks`
+  ADD PRIMARY KEY (`key`);
+
+--
+-- Indexes for table `failed_jobs`
+--
+ALTER TABLE `failed_jobs`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
+
+--
+-- Indexes for table `jobs`
+--
+ALTER TABLE `jobs`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `jobs_queue_index` (`queue`);
+
+--
+-- Indexes for table `job_batches`
+--
+ALTER TABLE `job_batches`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `local_routes`
+--
+ALTER TABLE `local_routes`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `migrations`
+--
+ALTER TABLE `migrations`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `password_reset_tokens`
+--
+ALTER TABLE `password_reset_tokens`
+  ADD PRIMARY KEY (`email`);
+
+--
+-- Indexes for table `sessions`
+--
+ALTER TABLE `sessions`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `sessions_user_id_index` (`user_id`),
+  ADD KEY `sessions_last_activity_index` (`last_activity`);
+
+--
+-- Indexes for table `tourisms`
+--
+ALTER TABLE `tourisms`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `transportations`
+--
+ALTER TABLE `transportations`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `users_email_unique` (`email`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `failed_jobs`
+--
+ALTER TABLE `failed_jobs`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `jobs`
+--
+ALTER TABLE `jobs`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `local_routes`
+--
+ALTER TABLE `local_routes`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `migrations`
+--
+ALTER TABLE `migrations`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `tourisms`
+--
+ALTER TABLE `tourisms`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=221;
+
+--
+-- AUTO_INCREMENT for table `transportations`
+--
+ALTER TABLE `transportations`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
